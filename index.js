@@ -10,14 +10,22 @@ const tweets = [];
 
 server.post('/sign-up', (req, res) => {
     user = req.body;
-    res.send("OK");
+    if(user.username && user.avatar){
+        res.status(201).send("OK");
+    }else{
+        res.sendStatus(400);
+    }
 });
 
 server.post('/tweets', (req, res) => {
     const tweet = req.body;
-    tweet.avatar = user.avatar;
-    tweets.push(tweet);
-    res.send("OK");
+    if(tweet.username && tweet.tweet){
+        tweet.avatar = user.avatar;
+        tweets.push(tweet);
+        res.status(201).send("OK");
+    }else{
+        res.sendStatus(400);
+    }
 });
 
 server.get('/tweets', (req, res) => {
