@@ -21,7 +21,15 @@ server.post('/tweets', (req, res) => {
 });
 
 server.get('/tweets', (req, res) => {
-    res.send(tweets)
+    const lastTweets = [];
+    if(tweets.length > 10){
+        for(let i=tweets.length-1; i >= tweets.length-10; i--){
+            lastTweets.push(tweets[i]);
+        }
+        res.send(lastTweets);
+    }else{
+        res.send(tweets);
+    }
 });
 
 
