@@ -20,5 +20,9 @@ server.post('/tweets', (req, res) => {
     res.send("OK");
 });
 
+server.get('/tweets', (req, res) => {
+    res.send(tweets)
+});
+
 
 server.listen(5000);
