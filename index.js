@@ -20,8 +20,8 @@ server.post('/sign-up', (req, res) => {
 server.post('/tweets', (req, res) => {
     const tweet = req.body;
     if(tweet.username && tweet.tweet){
-        tweet.avatar = user.avatar;
-        tweets.push(tweet);
+        tweets.push({ ...tweet, avatar: user.avatar });
+        console.log(tweets)
         res.status(201).send("OK");
     }else{
         res.sendStatus(400);
@@ -29,15 +29,8 @@ server.post('/tweets', (req, res) => {
 });
 
 server.get('/tweets', (req, res) => {
-    const lastTweets = [];
-    if(tweets.length > 10){
-        for(let i=tweets.length-1; i >= tweets.length-10; i--){
-            lastTweets.push(tweets[i]);
-        }
-        res.send(lastTweets);
-    }else{
-        res.send(tweets);
-    }
+    const tweetsReverse = [...tweets].reverse().slice(0, 10);
+    res.send(tweetsReverse);
 });
 
 
